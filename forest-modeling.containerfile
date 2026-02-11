@@ -13,7 +13,7 @@ ARG FVS_VARIANTS=pn,wc,ca,so,op,oc,ec,nc,bm,ie,ci,ak,ws
 # ARG FVS_VARIANTS=pn,wc,ca,so
 # ARG PYFVS_VERSION=v0.3.2
 
-ARG ROOT=/fomo
+ARG ROOT=/formage
 
 RUN apt update && apt install -y \
     git \
