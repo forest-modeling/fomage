@@ -8,8 +8,9 @@ ARG PYFVS_VERSION=main
 ARG PYNVEL_VERSION=main
 ARG PYSITEINDEX_VERSION=main
 # FVS variant libraries to build, must be lowercase
-# pn,wc,ca,so,op,oc,ec,nc,bm,ie,ci,ak,ws, #,em,tt,cr,ut,ls,cs,sn,ne
-ARG FVS_VARIANTS=pn,wc,ca,so
+ARG FVS_VARIANTS=pn,wc,ca,so,op,oc,ec,nc,bm,ie,ci,ak,ws
+#,em,tt,cr,ut,ls,cs,sn,ne
+# ARG FVS_VARIANTS=pn,wc,ca,so
 # ARG PYFVS_VERSION=v0.3.2
 
 ARG ROOT=/fomo
@@ -76,7 +77,7 @@ RUN apt update && apt install -y --no-install-recommends libgfortran5 \
   && rm -rf /var/lib/apt/lists/* \
   && apt clean
 
-ARG ROOT=/fomo
+ARG ROOT=/formage
 COPY --from=builder "$ROOT/venv" "$ROOT/venv"
 
 # Set environment variables for the virtual environment location
