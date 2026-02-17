@@ -3,16 +3,38 @@ name: Formage Container Image CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
 
-  build:
-
+  build-and-publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write # Required for pushing to GHCR
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Container image
-      run: docker build . --file formage.containerfile --tag formage:$(date +%s)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to the GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }} # Uses the GitHub username
+          password: ${{ secrets.GITHUB_TOKEN }} # Uses the auto-generated GITHUB_TOKEN secret
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: . # Build from the current directory where the Dockerfile is located
+          file: formage.containerfile
+          #--tag formage:$(date +%s)
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
