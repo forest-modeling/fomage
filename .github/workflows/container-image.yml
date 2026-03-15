@@ -46,3 +46,4 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             PYTHON_VER=${{ matrix.python_version }}
+            PYFVS_VER=${{ matrix.pyfvs_version }}
