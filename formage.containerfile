@@ -1,10 +1,10 @@
 # ---- Stage 1: Build ----
 ARG OS_TAG=slim-bookworm
 ARG PYTHON_VER
-ARG PYFVS_VER
 
 FROM python:${PYTHON_VER}-$OS_TAG AS builder
 
+ARG PYFVS_VER
 ARG PYNVEL_VERSION=main
 ARG PYSITEINDEX_VERSION=main
 # FVS variant libraries to build, must be lowercase
@@ -42,7 +42,7 @@ RUN git clone https://github.com/forest-modeling/PyFVS.git --recurse-submodules
 
 WORKDIR "$ROOT/PyFVS"
 
-RUN git checkout "${PYFVS_VER}"
+RUN git checkout "v${PYFVS_VER}"
 RUN python -m pip install . \
   --verbose --no-build-isolation \
   --config-settings=setup-args="-Dfvsvariants=$FVS_VARIANTS"

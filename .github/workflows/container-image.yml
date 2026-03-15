@@ -3,7 +3,7 @@ name: Formage Container Image CI
 on:
   push:
     branches: [ "main","dev" ]
-    tags: 'v.*.*'
+    tags: 'v*.*'
 
 jobs:
 
@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         python_version: ["3.12", "3.13"]
-        pyfvs_version: ["main","dev","v0.3.3","v0.3.4"]
+        pyfvs_version: ["main","dev","0.3.3","0.3.4"]
 
     steps:
       - name: Checkout repository
