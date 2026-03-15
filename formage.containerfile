@@ -42,7 +42,7 @@ RUN git clone https://github.com/forest-modeling/PyFVS.git --recurse-submodules
 
 WORKDIR "$ROOT/PyFVS"
 
-RUN git checkout "v${PYFVS_VER}"
+RUN if [[ "$PYFVS_VER" =~ ^[0-9] ]]; then git checkout "v$PYFVS_VER"; else git checkout "$PYFVS_VER"; fi
 RUN python -m pip install . \
   --verbose --no-build-isolation \
   --config-settings=setup-args="-Dfvsvariants=$FVS_VARIANTS"
